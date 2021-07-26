@@ -2,6 +2,8 @@
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "name" TEXT,
+    "gymUsername" TEXT NOT NULL,
+    "gymPassword" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phoneNum" TEXT NOT NULL,
 

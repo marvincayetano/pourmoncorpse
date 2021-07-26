@@ -1,1 +1,0 @@
-// https://myfit4less.gymmanager.com/portal/login.asp  document.querySelector("input[id=emailaddress]").value = "cayetanomarvin@gmail.com"; document.querySelector("input[id=password]").value = "Pogiako13"; document.querySelector("div[id=loginButton]").click();
