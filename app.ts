@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import express, { Application, Request, Response } from "express";
+import { CryptoEncrypt } from "./helpers/crypto";
 
 const prisma: PrismaClient = new PrismaClient();
 const app: Application = express();
