@@ -17,6 +17,7 @@ model User {
   gymPassword String
   email String  @unique
   phoneNum String  @unique
+  prefSchedules PreferedSchedule[]
   schedules Schedule[]
 }
 
@@ -27,4 +28,22 @@ model Schedule {
   date      DateTime
   user User?   @relation(fields: [userId], references: [id])
   userId Int?
+}
+
+model PreferedSchedule {
+  id    Int     @default(autoincrement()) @id
+  date  Day
+  time  DateTime
+  user User?   @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+enum Day {
+    Monday
+    Tuesday
+    Wednesday
+    Thurday
+    Friday
+    Saturday
+    Sunday
 }
