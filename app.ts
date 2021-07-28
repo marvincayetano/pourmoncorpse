@@ -1,11 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import express, { Application, Request, Response } from "express";
-import { CryptoEncrypt } from "./helpers/crypto";
+import { scrapeForSched } from "./helpers/scrape";
 
 const prisma: PrismaClient = new PrismaClient();
 const app: Application = express();
 
 // For testing
+scrapeForSched();
 // End for testing
 
 // TWILLIO SETUP

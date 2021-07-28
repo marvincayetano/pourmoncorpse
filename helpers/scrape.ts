@@ -1,5 +1,11 @@
-import { Puppeteer } from "puppeteer";
+const puppeteer = require("puppeteer");
 
-function ScrapeForSched() {}
+async function scrapeForSched() {
+  const browser = await puppeteer.launch({ headless: false });
+  const page = await browser.newPage();
+  await page.goto(<string>process.env.FIT4LESS_URL_LOGIN);
 
-export { ScrapeForSched };
+  await browser.close();
+}
+
+export { scrapeForSched };

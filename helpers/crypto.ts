@@ -8,10 +8,9 @@ function CryptoEncrypt(password: string) {
 }
 
 function CryptoDecrypt(password: string) {
-  return CryptoJS.AES.decrypt(
-    password,
-    <string>process.env.CRYPTO_SECRET
-  ).toString();
+  return JSON.parse(
+    CryptoJS.AES.decrypt(password, <string>process.env.CRYPTO_SECRET).toString()
+  );
 }
 
 export { CryptoDecrypt, CryptoEncrypt };
