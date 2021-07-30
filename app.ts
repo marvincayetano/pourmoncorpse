@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import express, { Application, Request, Response } from "express";
 import { scrapeAddSched } from "./helpers/scrapers/scrapeAddSched";
+import { scrapeGetSched } from "./helpers/scrapers/scrapeGetSched";
 
 const prisma: PrismaClient = new PrismaClient();
 const app: Application = express();
