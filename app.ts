@@ -1,12 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import express, { Application, Request, Response } from "express";
-import { scrapeForSched } from "./helpers/scrape";
+import { scrapeAddSched } from "./helpers/scrapers/scrapeAddSched";
 
 const prisma: PrismaClient = new PrismaClient();
 const app: Application = express();
 
 // For testing
-scrapeForSched();
+scrapeAddSched();
 // End for testing
 
 // TWILLIO SETUP
