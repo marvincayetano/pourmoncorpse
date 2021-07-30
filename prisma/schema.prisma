@@ -21,11 +21,13 @@ model User {
   schedules Schedule[]
 }
 
+//   <div id="cncl_84c0ae25-0828-4fa5-aba4-e99c5192172b" class="time-slot" data-slotclub="Ottawa Walkley Road" data-slotdate="Saturday, 31 July 2021" data-slottime="at 8:00 AM">
 model Schedule {
   id        Int     @default(autoincrement()) @id
-  title     String
-  content   String?
+  scheduleId Int
+  location  String
   date      DateTime
+  time      String
   user User?   @relation(fields: [userId], references: [id])
   userId Int?
 }
