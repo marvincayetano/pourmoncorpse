@@ -7,4 +7,4 @@
 # Future Implementation (if legal)
 
 - People can register to automate theirs too
-- People can view their current schedules
+- People can view their current schedules via text or email
