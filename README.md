@@ -2,4 +2,4 @@
 
 ---
 
-**Pourmoncorps** a typescript server that schedules my Fit4less appointments faster.
+**Pourmoncorps** a nodejs(typescript) server that schedules my Fit4less appointments faster.
