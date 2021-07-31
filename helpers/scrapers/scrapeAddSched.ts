@@ -101,6 +101,7 @@ async function scrapeAddSched() {
         let bookedDate;
 
         await page.evaluate((...addSchedule) => {
+          console.log("Available timeslots");
           addSchedule.map((schedule, i) => {
             console.log(`(${i}) ${schedule.getAttrbute("data-slottime")}`);
           });
