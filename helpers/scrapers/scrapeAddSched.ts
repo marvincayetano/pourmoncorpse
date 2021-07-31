@@ -101,12 +101,18 @@ async function scrapeAddSched() {
         let bookedDate;
 
         await page.evaluate((...addSchedule) => {
-          (bookedDate = "You booked on "),
-            `${addSchedule[0].getAttribute(
-              "data-slotdate"
-            )} at ${addSchedule[0].getAttribute("data-slottime")}`;
+          addSchedule.map((schedule, i) => {
+            console.log(`(${i}) ${schedule.getAttrbute("data-slottime")}`);
+          });
 
-          addSchedule[0].click();
+          readline.question("Pick your time: ", async (pickedTime: number) => {
+            (bookedDate = "You booked on "),
+              `${addSchedule[pickedTime].getAttribute(
+                "data-slotdate"
+              )} at ${addSchedule[pickedTime].getAttribute("data-slottime")}`;
+
+            addSchedule[pickedTime].click();
+          });
         }, ...addSchedule);
 
         // Click dialog button yes here
