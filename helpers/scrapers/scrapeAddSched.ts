@@ -149,7 +149,7 @@ async function scrapeAddSched() {
       console.log(bookedDate);
       await browser.close();
     } else {
-      console.log("Schedule is full!", "background: #222; color: #bada55");
+      console.log("%c Schedule is full!", "background: #222; color: #bada55");
       await browser.close();
     }
   } catch (err) {
