@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer";
+import puppeteer, { ConsoleMessage } from "puppeteer";
 
 async function scrapeAddSched() {
   const browser = await puppeteer.launch({ headless: false });
@@ -83,6 +83,8 @@ async function scrapeAddSched() {
         output: process.stdout,
         terminal: false,
       });
+
+      console.log("TODAY IS: ", new Date());
 
       readline.question("Pick your date: ", async (pickedDate: number) => {
         await page.evaluate(
