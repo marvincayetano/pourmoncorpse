@@ -1,4 +1,20 @@
 import puppeteer, { ConsoleMessage } from "puppeteer";
+import readline from "readline";
+
+async function readLine(question: string): Promise<number> {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    terminal: false,
+  });
+
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => {
+      rl.close();
+      resolve(parseInt(answer));
+    });
+  });
+}
 
 async function scrapeAddSched() {
   const browser = await puppeteer.launch();
@@ -78,61 +94,67 @@ async function scrapeAddSched() {
 
       console.log("Available dates", availScheds);
 
-      const readline = require("readline").createInterface({
-        input: process.stdin,
-        output: process.stdout,
-        terminal: false,
-      });
+      console.log(
+        `TODAY IS: ${new Date().toLocaleString("en-us", { weekday: "long" })}`
+      );
 
-      console.log("TODAY IS: ", new Date());
+      const pickedDate = await readLine("Pick your date: ");
 
-      readline.question("Pick your date: ", async (pickedDate: number) => {
-        await page.evaluate(
-          (pickedDate: number, ...getAvailScheds) =>
-            getAvailScheds[pickedDate].click(),
-          pickedDate,
-          ...getAvailScheds
-        );
+      await page.evaluate(
+        (pickedDate: number, ...getAvailScheds) => {
+          getAvailScheds[pickedDate].click();
+        },
 
-        await page.waitForNavigation();
+        pickedDate,
+        ...getAvailScheds
+      );
 
-        const addSchedule = await page.$x(
-          "//div[@class = 'available-slots']//div[contains(@id, 'book_')]"
-        );
+      await page.waitForNavigation();
 
-        let bookedDate;
+      const addSchedule = await page.$x(
+        "//div[@class = 'available-slots']//div[contains(@id, 'book_')]"
+      );
 
-        await page.evaluate((...addSchedule) => {
-          console.log("Available timeslots");
-          addSchedule.map((schedule, i) => {
-            console.log(`(${i}) ${schedule.getAttrbute("data-slottime")}`);
-          });
+      const timeslots = await page.evaluate(
+        (...addSchedule) =>
+          addSchedule.map((time, i) => {
+            return `(${i}) ${time.getAttribute("data-slottime")}`;
+          }),
+        ...addSchedule
+      );
 
-          readline.question("Pick your time: ", async (pickedTime: number) => {
-            (bookedDate = "You booked on "),
-              `${addSchedule[pickedTime].getAttribute(
+      console.log("Available timeslots ", timeslots);
+
+      const pickedTime = await readLine("Pick your time: ");
+
+      const bookedDate = await page.evaluate(
+        (pickedTime: number, ...addSchedule) => {
+          addSchedule[pickedTime].click();
+
+          return `You booked on
+              ${addSchedule[pickedTime].getAttribute(
                 "data-slotdate"
               )} at ${addSchedule[pickedTime].getAttribute("data-slottime")}`;
+        },
 
-            addSchedule[pickedTime].click();
-          });
-        }, ...addSchedule);
+        pickedTime,
+        ...addSchedule
+      );
 
-        // Click dialog button yes here
-        await page.click(
-          "div[class='modal-footer'] > button[id='dialog_book_yes']"
-        );
+      // Click dialog button yes here
+      await page.click(
+        "div[class='modal-footer'] > button[id='dialog_book_yes']"
+      );
 
-        console.log(bookedDate);
-        readline.close();
-      });
+      console.log(bookedDate);
     } else {
       console.log("Schedule is full");
+      await browser.close();
     }
-  } catch {
-    return { err: "Error while loading" };
-  } finally {
+  } catch (err) {
     await browser.close();
+    console.log(err);
+    return { err: "Error while loading" };
   }
 }
 
