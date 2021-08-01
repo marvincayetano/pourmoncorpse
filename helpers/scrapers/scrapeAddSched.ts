@@ -1,7 +1,7 @@
 import puppeteer, { ConsoleMessage } from "puppeteer";
 
 async function scrapeAddSched() {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
   const USERNAME: string = <string>process.env.FIT4LESS_USERNAME;
