@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "nodemon app.ts"
+    "dev": "ts-node app.ts"
   },
   "dependencies": {
     "@prisma/client": "^2.27.0",
