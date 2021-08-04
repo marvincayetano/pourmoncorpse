@@ -1,6 +1,6 @@
 {
   "name": "pourmoncorpse",
-  "license": "",
+  "private": "true",
   "scripts": {
     "dev": "ts-node app.ts"
   },
